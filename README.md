@@ -27,13 +27,13 @@ Ele preenche, confere, e envia pelo WhatsApp ou salva a imagem.
 
 | Parte | O que é |
 |---|---|
-| Topo | Logo, título e CPF + senha do Gov.br, com o aviso para deixar a verificação em duas etapas desligada |
+| Topo | Logo, título, CPF, senha do Gov.br (visível, para o cliente conferir), nome (só para identificar o cliente) e o aviso para deixar a verificação em duas etapas desligada, com um mini tutorial de como desligar |
 | Seus dados | RG (só números; se terminar com letra, o cliente marca uma opção e digita a letra), órgão e UF emissor, telefone para contato, e-mail (obrigatório), capital social (opcional) |
 | Seu negócio | Pergunta se é caminhoneiro autônomo (regime Geral ou MEI Caminhoneiro) e um campo livre: "o que você faz ou vende?" (a atividade/CNAE é definida pelo escritório) |
 | Endereço | CEP com busca automática (ViaCEP); o cliente só confere e digita o número |
-| Envio | O botão verde abre o WhatsApp já com o texto, para o número do escritório (mostrado na tela). Também dá para salvar como imagem ou copiar o texto |
+| Envio | O botão verde abre o WhatsApp já com o texto, para o número do escritório (o número não aparece na tela). Também dá para salvar como imagem ou copiar o texto |
 | Revisão | Tela de conferência na ordem do portal, com o aviso sobre golpes e os botões de envio |
-| Não é pedido | Tudo que o portal preenche sozinho (nome, data de nascimento, sexo, nome da mãe, celular do Gov.br, logradouro, bairro, município) |
+| Não é pedido | Tudo que o portal preenche sozinho (data de nascimento, sexo, nome da mãe, celular do Gov.br, logradouro, bairro, município) |
 
 ## Como usar (do lado do escritório)
 

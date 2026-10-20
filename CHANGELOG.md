@@ -2,6 +2,17 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.4.0] - 2026-10-20
+
+### Adicionado
+- Campo "Seu nome" logo abaixo da senha do Gov.br, para identificar o cliente (não precisa ser o nome completo). Aparece logo depois da senha no resumo.
+- Mini tutorial escondido ("Não sabe como fazer? Clique aqui.") ensinando a desligar a verificação em duas etapas: conta do Gov.br, aba Segurança, desativar.
+
+### Alterado
+- A senha do Gov.br passa a ficar visível na tela, para o cliente conferir o que digitou.
+- Subtítulo do cabeçalho: "Leva menos de um minuto. Responda com calma."
+- Na tela final, o número do escritório deixa de ser mostrado. O botão agora é "Enviar para a Contabilidade", com a explicação de que o WhatsApp abre com as informações prontas e basta apertar enviar.
+
 ## [1.3.0] - 2026-10-20
 
 ### Adicionado
