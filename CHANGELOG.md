@@ -2,6 +2,11 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.4.1] - 2026-10-20
+
+### Adicionado
+- Arquivo `CNAME` com o endereço oficial `mei.esidoro.com.br` para o GitHub Pages, e registro DNS correspondente.
+
 ## [1.4.0] - 2026-10-20
 
 ### Adicionado

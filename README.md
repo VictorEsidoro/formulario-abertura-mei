@@ -14,7 +14,7 @@ O número que recebe os dados já vem configurado no arquivo (`WHATSAPP_NUMBER`)
 > ⚠️ Sem rodar o `atualizar-csp.py` depois de qualquer edição no script, o navegador bloqueia a página e o formulário não funciona.
 
 **Passo 2 – Coloque o arquivo online.**
-O cliente precisa de um link para abrir no navegador do celular. Mandar o arquivo `.html` direto pelo WhatsApp **não funciona no iPhone**: ele abre numa pré-visualização sem JavaScript e o formulário aparece quebrado. A Esidoros publica o `index.html` pelo GitHub Pages (no repositório: Settings → Pages → branch `main`, pasta raiz). O link aparece nessa mesma tela, sempre com `https://`.
+O cliente precisa de um link para abrir no navegador do celular. Mandar o arquivo `.html` direto pelo WhatsApp **não funciona no iPhone**: ele abre numa pré-visualização sem JavaScript e o formulário aparece quebrado. A Esidoros publica o `index.html` pelo GitHub Pages (no repositório: Settings → Pages → branch `main`, pasta raiz). O link aparece nessa mesma tela, sempre com `https://`. O endereço oficial é `https://mei.esidoro.com.br`, definido pelo arquivo `CNAME` na raiz do repositório e por um registro DNS do tipo CNAME (`mei` apontando para `victoresidoro.github.io`) na zona DNS do domínio.
 
 > ⚠️ Nada de dados reais de clientes no repositório. O arquivo contém só o formulário vazio.
 
@@ -55,6 +55,7 @@ Ele preenche, confere, e envia pelo WhatsApp ou salva a imagem.
 
 | Item | Onde | Observação |
 |---|---|---|
+| Endereço (domínio) | Arquivo `CNAME` e zona DNS do `esidoro.com.br` | Não apague o arquivo `CNAME` |
 | Número do WhatsApp | `WHATSAPP_NUMBER`, no início do `<script>` | Só dígitos, com 55 + DDD. Depois de trocar, rode `python3 atualizar-csp.py` |
 
 ## Para desenvolvedores
