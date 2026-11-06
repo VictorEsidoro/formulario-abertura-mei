@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-zneweWZvfkk5UxaKIoRTwcl/ZI6f5gIxRsQ4Zhw+vaQ='; style-src 'unsafe-inline'; img-src data:; connect-src https://viacep.com.br; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-RTIjEIrGuzn6Ox31iQa0QegAVUs/rq6NIUJ0mjUUs68='; style-src 'unsafe-inline'; img-src data:; connect-src https://viacep.com.br; base-uri 'none'; form-action 'none'">
 <meta name="robots" content="noindex, nofollow">
 <title>MEI – Esidoros</title>
 <style>
@@ -42,6 +42,11 @@
   .choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .choice label{margin:0;font-weight:500;border:1.5px solid #cfc8bb;border-radius:10px;padding:13px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;background:#fff}
   .choice.col1{grid-template-columns:1fr}
+  .shout{background:#fdecea;border:2px solid var(--err);color:var(--err);border-radius:10px;padding:12px 14px;font-weight:800;text-transform:uppercase;line-height:1.35;font-size:.95rem;margin:0 0 14px}
+  .shout.big{font-size:1.02rem;margin:14px 0 0}
+  .shout u{text-decoration-thickness:3px}
+  .shout.soft{text-transform:none;font-weight:700}
+  .ph-vazio::placeholder{color:var(--err);opacity:.8;font-weight:700}
   .choice label:has(input:checked){border-color:var(--gold);background:#fbf6ea}
   .check{display:flex;gap:12px;align-items:flex-start;font-weight:400;cursor:pointer}
   input[type=radio],input[type=checkbox]{width:24px;height:24px;padding:0;margin:0;flex:none;border:2px solid #9a9386;background:#fff;display:grid;place-content:center;cursor:pointer}
@@ -109,7 +114,7 @@
         <label><input type="radio" name="modo" value="abrir"> Abrir um MEI novo</label>
         <label><input type="radio" name="modo" value="alterar"> Alterar dados do meu MEI</label>
       </div>
-      <div class="hint" data-only="alterar" hidden style="margin-top:12px"><strong>Preencha só o que você quer alterar.</strong> O que ficar em branco continua como está.</div>
+      <div class="shout big" data-only="alterar" hidden>⚠️ Preencha <u>somente</u> o que você quer alterar! Se não quer alterar um dado, não escreva nada nele e vá para o próximo campo. O que ficar em branco continua como está.</div>
     </section>
 
     <div id="rest" hidden>
@@ -152,8 +157,9 @@
 
     <section class="card">
       <h2><span class="num">2</span> Seus dados</h2>
-      <div class="hint" data-only="alterar" hidden style="margin:-6px 0 14px">Só o que mudou. O resto deixe em branco.</div>
+      <div class="shout" data-only="alterar" hidden>Preencha somente o que mudou. Se não quer alterar, deixe vazio e vá para o próximo campo.</div>
 
+      <div data-only="abrir" hidden>
       <div class="field" id="f-rg">
         <label for="rg">Número da identidade (RG)</label>
         <input id="rg" inputmode="numeric" pattern="[0-9]*" maxlength="20" autocomplete="off" placeholder="Só os números do RG">
@@ -191,6 +197,7 @@
         <input id="orgao2" autocomplete="off" autocapitalize="characters" placeholder="Digite como está no seu RG">
         <div class="err"></div>
       </div>
+      </div>
 
       <div class="field" id="f-tel">
         <label for="tel">Telefone para contato (com DDD)</label>
@@ -224,12 +231,19 @@
         </div>
         <div class="hint">Se o seu trabalho for outro, marque Não.</div>
       </div>
-      <div class="field" data-only="alterar" hidden>
+      <div class="shout" data-only="alterar" hidden>Preencha somente o que mudou. Se não quer alterar, deixe vazio e vá para o próximo campo.</div>
+      <div class="field" id="f-regimealt" data-only="alterar" hidden>
         <label style="margin-bottom:10px">Quer mudar a situação de caminhoneiro autônomo?</label>
         <div class="choice col1">
           <label><input type="radio" name="regimealt" value="nenhum" checked> Não quero mudar</label>
           <label><input type="radio" name="regimealt" value="caminhoneiro"> Passar a ser caminhoneiro autônomo</label>
           <label><input type="radio" name="regimealt" value="geral"> Deixar de ser caminhoneiro autônomo</label>
+        </div>
+        <div class="err"></div>
+        <div id="aviso-janeiro" hidden style="margin-top:12px">
+          <div class="shout soft" id="aviso-janeiro-txt"></div>
+          <button class="secondary" type="button" id="btn-lembrete">⏰ Criar lembrete no meu celular</button>
+          <div class="hint" id="lembrete-msg" style="margin-top:8px"></div>
         </div>
       </div>
       <div class="field" id="f-atividade">
@@ -241,7 +255,7 @@
 
     <section class="card">
       <h2><span class="num">4</span> Endereço do negócio</h2>
-      <div class="hint" data-only="alterar" hidden style="margin:-6px 0 14px">Preencha só se o endereço do negócio mudou.</div>
+      <div class="shout" data-only="alterar" hidden>Preencha somente se o endereço do negócio mudou. Se não mudou, deixe vazio e vá para o próximo campo.</div>
       <div id="blk-com"></div>
     </section>
 
@@ -336,9 +350,88 @@ function aplicarModo() {
   const m = modo();
   document.querySelectorAll("[data-only]").forEach(el => { el.hidden = el.dataset.only !== m; });
   $("#rest").hidden = !m;
+  document.body.classList.toggle("alterar", m === "alterar");
+  placeholdersDoModo(m);
+  atualizarAvisoJaneiro();
   document.querySelectorAll(".field.bad").forEach(f => { f.classList.remove("bad"); const e = f.querySelector(".err"); if (e) e.textContent = ""; });
   atualizarMoradia();
 }
+// No modo "alterar" os campos mostram, dentro deles, que podem ficar vazios.
+const PH_VAZIO = "NÃO VAI ALTERAR? DEIXE VAZIO";
+const PH_NUM = "SE MUDOU, DIGITE O Nº (OU S/N)";
+function placeholdersDoModo(m) {
+  ["tel", "email", "capital", "atividade", "com-cep", "com-num", "com-comp", "res-cep", "res-num", "res-comp"].forEach(id => {
+    const el = $("#" + id);
+    if (!el) return;
+    if (el.dataset.ph === undefined) el.dataset.ph = el.placeholder;
+    el.placeholder = m === "alterar" ? (id.endsWith("-num") ? PH_NUM : PH_VAZIO) : el.dataset.ph;
+    el.classList.toggle("ph-vazio", m === "alterar");
+  });
+}
+
+/* ---------- Mudança de caminhoneiro: só em janeiro ----------
+   A regra vale para quem quer PASSAR A SER MEI Caminhoneiro (abrir um MEI novo pode em qualquer época).
+   A data vem do relógio do celular; o escritório confere de novo antes de pedir a mudança. */
+const MES_PERMITIDO = 0; // 0 = janeiro
+const foraDeJaneiro = () => new Date().getMonth() !== MES_PERMITIDO;
+function primeiroDiaUtilProximoJaneiro() {
+  const d = new Date(new Date().getFullYear() + 1, 0, 2); // 1º/jan é feriado: começa do dia 2
+  while (d.getDay() === 0 || d.getDay() === 6) d.setDate(d.getDate() + 1);
+  return d;
+}
+const dataExtensa = d => d.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+function atualizarAvisoJaneiro() {
+  const bloqueia = modo() === "alterar" && checked("regimealt") === "caminhoneiro" && foraDeJaneiro();
+  $("#aviso-janeiro").hidden = !bloqueia;
+  if (!bloqueia) return;
+  const quando = dataExtensa(primeiroDiaUtilProximoJaneiro());
+  $("#aviso-janeiro-txt").textContent = "⚠️ ATENÇÃO: PASSAR A SER CAMINHONEIRO AUTÔNOMO SÓ PODE SER PEDIDO EM JANEIRO. POR ISSO NÃO DÁ PARA PEDIR AGORA. " +
+    "Para enviar o resto das alterações, marque \"Não quero mudar\" aqui em cima. " +
+    "Para pedir esta mudança, volte a este formulário em janeiro: " + quando + " é o primeiro dia útil.";
+  $("#lembrete-msg").textContent = "Se o lembrete não abrir no seu celular, anote: " + quando + ".";
+}
+document.querySelectorAll('input[name="regimealt"]').forEach(r => r.addEventListener("change", atualizarAvisoJaneiro));
+
+function lembreteICS() {
+  const d = primeiroDiaUtilProximoJaneiro();
+  const p = n => String(n).padStart(2, "0");
+  const dia = `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}`;
+  const agora = new Date();
+  const stamp = `${agora.getUTCFullYear()}${p(agora.getUTCMonth() + 1)}${p(agora.getUTCDate())}T${p(agora.getUTCHours())}${p(agora.getUTCMinutes())}00Z`;
+  return [
+    "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Esidoros//MEI//PT", "CALSCALE:GREGORIAN",
+    "BEGIN:VEVENT",
+    `UID:mei-caminhoneiro-${dia}@esidoro.com.br`,
+    `DTSTAMP:${stamp}`,
+    `DTSTART:${dia}T090000`,
+    `DTEND:${dia}T093000`,
+    "SUMMARY:Pedir à Esidoros: passar a ser MEI Caminhoneiro",
+    "DESCRIPTION:Hoje já pode pedir. Abra https://mei.esidoro.com.br e envie o seu pedido de alteração para a Esidoros.",
+    "BEGIN:VALARM", "ACTION:DISPLAY", "DESCRIPTION:Pedir à Esidoros: passar a ser MEI Caminhoneiro", "TRIGGER:PT0S", "END:VALARM",
+    "END:VEVENT", "END:VCALENDAR"
+  ].join("\r\n");
+}
+$("#btn-lembrete").addEventListener("click", async () => {
+  const msg = $("#lembrete-msg");
+  try {
+    const blob = new Blob([lembreteICS()], { type: "text/calendar;charset=utf-8" });
+    const file = new File([blob], "lembrete-mei.ics", { type: "text/calendar" });
+    const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    if (ios && navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file], title: "Lembrete: MEI Caminhoneiro" }); return; }
+      catch (e) { if (e.name === "AbortError") return; }
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "lembrete-mei.ics";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    msg.textContent = "Lembrete baixado. Toque nele para adicionar à sua agenda. Se não abrir, anote: " + dataExtensa(primeiroDiaUtilProximoJaneiro()) + ".";
+  } catch (e) {
+    msg.textContent = "Não consegui criar o lembrete. Anote: " + dataExtensa(primeiroDiaUtilProximoJaneiro()) + ".";
+  }
+});
+
 function atualizarMoradia() {
   const precisa = modo() === "alterar" ? checked("resalt") === "outro" : checked("mesmo") === "nao";
   $("#blk-res").hidden = !precisa;
@@ -521,8 +614,6 @@ function validate() {
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("email"));
   const telOk = [10, 11].includes(digits(v("tel")).length);
   if (alt) {
-    chkOpt("rg", v("rg") !== "", rgOk, rgMsg);
-    chkOpt("orgao2", v("orgao") === "__outro", outroOk, "Digite o órgão emissor.");
     chkOpt("tel", v("tel") !== "", telOk, "Digite o telefone com DDD (10 ou 11 números).");
     chkOpt("email", v("email") !== "", emailOk, "Digite um e-mail válido.");
     chkOpt("atividade", v("atividade") !== "", v("atividade").length >= 5, "Escreva um pouco mais sobre o que você faz ou vende.");
@@ -549,6 +640,8 @@ function validate() {
     chk(`${p}-num`, v(`${p}-num`) !== "", "Digite o número (ou S/N).");
   };
   if (alt) {
+    chk("regimealt", !(checked("regimealt") === "caminhoneiro" && foraDeJaneiro()),
+        "Essa mudança só pode ser pedida em janeiro. Marque \"Não quero mudar\" para enviar o resto.");
     const comMexeu = enderecoPreenchido("com");
     if (comMexeu) checkAddr("com");
     const res = checked("resalt");
@@ -569,7 +662,7 @@ const enderecoPreenchido = p => digits($(`#${p}-cep`).value).length > 0 || $(`#$
 // No modo "alterar": a pessoa pediu mesmo alguma mudança?
 function temAlteracao() {
   const v = id => $("#" + id).value.trim();
-  return !!(v("rg") || v("orgao") || v("ufemi") || v("tel") || v("email") || v("capital") || v("atividade") || v("obs")
+  return !!(v("tel") || v("email") || v("capital") || v("atividade") || v("obs")
     || checked("regimealt") !== "nenhum" || enderecoPreenchido("com") || checked("resalt") !== "nao");
 }
 
@@ -585,9 +678,9 @@ function collect() {
   // Abrir: tudo entra. Alterar: só entra o que a pessoa preencheu.
   const add = (label, val) => { if (!alt || val) rows.push([label, val || "—"]); };
   if (alt) rows.push({ h: "Dados a alterar" });
-  add("Nº da identidade (RG)", alt && !v("rg") ? "" : rgValor());
-  add("Órgão emissor", orgaoValor());
-  add("UF emissor", v("ufemi"));
+  if (!alt) {
+    rows.push(["Nº da identidade (RG)", rgValor()], ["Órgão emissor", orgaoValor()], ["UF emissor", v("ufemi")]);
+  }
   add("Telefone para contato", v("tel"));
   add("E-mail", v("email"));
   add("Capital social", v("capital"));

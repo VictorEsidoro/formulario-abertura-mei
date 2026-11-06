@@ -2,6 +2,19 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.6.0] - 2026-11-06
+
+### Adicionado
+- Trava de data para **passar a ser caminhoneiro autônomo** no modo alterar: esse pedido só pode ser feito em janeiro. Fora de janeiro (pelo relógio do celular), o formulário mostra um aviso em vermelho, não deixa enviar com essa opção marcada e orienta a marcar "Não quero mudar" para enviar o resto. Abrir um MEI de caminhoneiro continua liberado o ano todo.
+- Botão **Criar lembrete no meu celular**: baixa um arquivo de agenda (.ics) com alarme às 9h do primeiro dia útil de janeiro do ano seguinte (a partir do dia 2, pulando fim de semana). No iPhone abre o menu de compartilhar. O aviso também escreve a data por extenso, para o cliente anotar se o lembrete não abrir.
+- Avisos em vermelho e em maiúsculas no modo alterar ("PREENCHA SOMENTE O QUE QUER ALTERAR... DEIXE VAZIO E VÁ PARA O PRÓXIMO CAMPO") no topo e no início de cada bloco, e também dentro dos campos opcionais (texto do próprio campo: "NÃO VAI ALTERAR? DEIXE VAZIO").
+
+### Alterado
+- No modo alterar, o bloco "Seus dados" começa pelo telefone: RG, órgão emissor e UF emissor não aparecem (o RG de quem já tem MEI está no cadastro e não muda). Mesmo que o cliente tenha preenchido antes no modo abrir, esses dados não vão na mensagem de alteração.
+
+### Observação
+- A trava de janeiro vale só para "passar a ser" caminhoneiro (regra confirmada em material do Sebrae). Para "deixar de ser" caminhoneiro não há trava, pois a regra de prazo não foi confirmada.
+
 ## [1.5.0] - 2026-11-06
 
 ### Adicionado
