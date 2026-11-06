@@ -2,6 +2,19 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.5.0] - 2026-11-06
+
+### Adicionado
+- Pergunta logo no início: "O que você precisa?" com as opções **Abrir um MEI novo** e **Alterar dados do meu MEI**. O formulário só aparece depois da escolha.
+- Modo **alterar dados**: só CPF, senha do Gov.br, nome e a autorização são obrigatórios. Todo o resto é opcional e só o que foi preenchido vai na mensagem, na imagem e no texto copiado. Quem só quer trocar o endereço não precisa informar atividade, RG etc.
+- No modo alterar: o formulário exige pelo menos uma alteração; o que for preenchido é conferido (telefone, e-mail, RG, órgão); endereço preenchido pede CEP e número; perguntas próprias para regime ("não quero mudar" / passar a ser / deixar de ser caminhoneiro) e moradia ("não mudou" / mudou, igual ao negócio / mudou, outro endereço); campo opcional de recado para outras alterações.
+- Mensagem, imagem e arquivo de imagem com título próprio ("ALTERAÇÃO DE DADOS DO MEI").
+
+### Alterado
+- Título da página e do cabeçalho: "MEI: abertura e alteração de dados".
+- Aviso de privacidade fala em "atender o seu pedido". O aviso de golpes pós-abertura aparece só no modo abrir.
+- O modo **abrir** continua igual: todos os campos obrigatórios seguem obrigatórios.
+
 ## [1.4.1] - 2026-10-20
 
 ### Adicionado

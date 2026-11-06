@@ -27,6 +27,7 @@ Ele preenche, confere, e envia pelo WhatsApp ou salva a imagem.
 
 | Parte | O que é |
 |---|---|
+| Escolha inicial | Pergunta "O que você precisa?": **Abrir um MEI novo** ou **Alterar dados do meu MEI**. No modo alterar, só CPF, senha, nome e a autorização são obrigatórios: o cliente preenche apenas o que mudou (ex.: só o endereço) e só isso vai na mensagem |
 | Topo | Logo, título, CPF, senha do Gov.br (visível, para o cliente conferir), nome (só para identificar o cliente) e o aviso para deixar a verificação em duas etapas desligada, com um mini tutorial de como desligar |
 | Seus dados | RG (só números; se terminar com letra, o cliente marca uma opção e digita a letra), órgão e UF emissor, telefone para contato, e-mail (obrigatório), capital social (opcional) |
 | Seu negócio | Pergunta se é caminhoneiro autônomo (regime Geral ou MEI Caminhoneiro) e um campo livre: "o que você faz ou vende?" (a atividade/CNAE é definida pelo escritório) |
@@ -39,7 +40,8 @@ Ele preenche, confere, e envia pelo WhatsApp ou salva a imagem.
 
 1. O cliente envia o texto (ou a imagem) pelo WhatsApp.
 2. Cada linha chega na ordem da tela do portal: é só copiar e colar campo a campo.
-3. Depois da abertura do MEI, apague a mensagem e os arquivos recebidos (LGPD).
+3. A mensagem começa com "ABERTURA DE MEI" ou "ALTERAÇÃO DE DADOS DO MEI". Na alteração, vêm só os campos que o cliente quis mudar.
+4. Depois da abertura ou da alteração, apague a mensagem e os arquivos recebidos (LGPD).
 
 ## Problemas comuns
 
