@@ -2,6 +2,19 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.7.0] - 2026-11-06
+
+### Adicionado
+- Conferência da senha do Gov.br (nos dois modos): se a senha digitada não tem 8 ou mais caracteres, letra maiúscula, letra minúscula, número e símbolo, ou se tem espaço (no começo, no fim ou no meio), aparece um aviso amarelo dizendo o que falta e pedindo para a pessoa conferir. Para seguir, ela marca a caixinha "Conferi a senha e ela está certa mesmo assim". É só um aviso: com a caixinha marcada, o envio segue normalmente.
+- Quando a senha não bate com o padrão, a mensagem enviada ao escritório traz a linha "Aviso sobre a senha", dizendo que o cliente confirmou e o que foi diferente do padrão (ex.: "tem espaço no fim"), para o escritório digitar exatamente como veio.
+
+### Alterado
+- A senha deixa de ser "cortada" (trim): espaços no começo e no fim agora são preservados, porque o espaço também é caractere da senha.
+
+### Observação
+- O padrão (8+ caracteres, maiúscula, minúscula, número e símbolo) foi tirado de um tutorial de universidade sobre a conta Gov.br, não da página oficial; por isso é só aviso, nunca bloqueio. Não há limite máximo nem lista de símbolos validada.
+- Confirmado pelo Victor: deixar de ser caminhoneiro autônomo pode ser pedido em qualquer época; só **passar a ser** é restrito a janeiro. A regra do formulário já funciona assim.
+
 ## [1.6.0] - 2026-11-06
 
 ### Adicionado

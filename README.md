@@ -28,6 +28,7 @@ Ele preenche, confere, e envia pelo WhatsApp ou salva a imagem.
 | Parte | O que é |
 |---|---|
 | Escolha inicial | Pergunta "O que você precisa?": **Abrir um MEI novo** ou **Alterar dados do meu MEI**. No modo alterar, só CPF, senha, nome e a autorização são obrigatórios: o cliente preenche apenas o que mudou (ex.: só o endereço) e só isso vai na mensagem. Avisos em vermelho reforçam isso, e RG/órgão/UF não são pedidos |
+| Conferência da senha | Se a senha do Gov.br não tem 8+ caracteres com maiúscula, minúscula, número e símbolo, ou tem espaço, aparece um aviso e o cliente marca "conferi, está certa". Não impede o envio; a mensagem leva uma linha "Aviso sobre a senha" |
 | Passar a ser caminhoneiro | Só pode ser pedido em janeiro. Fora de janeiro (data do celular) o formulário bloqueia essa opção e oferece um lembrete de agenda para o primeiro dia útil de janeiro |
 | Topo | Logo, título, CPF, senha do Gov.br (visível, para o cliente conferir), nome (só para identificar o cliente) e o aviso para deixar a verificação em duas etapas desligada, com um mini tutorial de como desligar |
 | Seus dados | RG (só números; se terminar com letra, o cliente marca uma opção e digita a letra), órgão e UF emissor, telefone para contato, e-mail (obrigatório), capital social (opcional) |

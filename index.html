@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-RTIjEIrGuzn6Ox31iQa0QegAVUs/rq6NIUJ0mjUUs68='; style-src 'unsafe-inline'; img-src data:; connect-src https://viacep.com.br; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-RYsytnxAIuLeR6TapmcrnvdXspQ1lNWs4abc1Hp3ePQ='; style-src 'unsafe-inline'; img-src data:; connect-src https://viacep.com.br; base-uri 'none'; form-action 'none'">
 <meta name="robots" content="noindex, nofollow">
 <title>MEI – Esidoros</title>
 <style>
@@ -43,6 +43,7 @@
   .choice label{margin:0;font-weight:500;border:1.5px solid #cfc8bb;border-radius:10px;padding:13px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;background:#fff}
   .choice.col1{grid-template-columns:1fr}
   .shout{background:#fdecea;border:2px solid var(--err);color:var(--err);border-radius:10px;padding:12px 14px;font-weight:800;text-transform:uppercase;line-height:1.35;font-size:.95rem;margin:0 0 14px}
+  .pwcheck{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;padding:12px 14px;margin-top:10px;font-size:.92rem}
   .shout.big{font-size:1.02rem;margin:14px 0 0}
   .shout u{text-decoration-thickness:3px}
   .shout.soft{text-transform:none;font-weight:700}
@@ -132,6 +133,13 @@
         <label for="senha">Senha do Gov.br <span class="opt">(obrigatório)</span></label>
         <input id="senha" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Digite a senha do seu Gov.br">
         <div class="hint">A senha aparece na tela de propósito, para você conferir se digitou certo.</div>
+        <div class="pwcheck" id="pw-check" hidden>
+          <div id="pw-msg"></div>
+          <label class="check" for="pw-ok" style="margin-top:10px">
+            <input type="checkbox" id="pw-ok">
+            <span><strong>Conferi a senha e ela está certa mesmo assim.</strong></span>
+          </label>
+        </div>
         <div class="err"></div>
       </div>
 
@@ -558,6 +566,35 @@ function addrData(p) {
   return { ...base, ...(addr[p].found || { rua: "", bairro: "", cidade: "", uf: "" }) };
 }
 
+/* ---------- Conferência da senha do Gov.br ----------
+   Só um AVISO: a senha costuma ter 8+ caracteres, com maiúscula, minúscula, número e símbolo.
+   Se não bater (ou tiver espaço, que também é caractere), a pessoa confirma e o envio segue.
+   A senha NUNCA é alterada nem cortada: vai exatamente como foi digitada. */
+function senhaAvisos(s) {
+  const a = [];
+  if (!s) return a;
+  if (s.length < 8) a.push("tem menos de 8 caracteres");
+  if (!/\p{Lu}/u.test(s)) a.push("não tem letra maiúscula");
+  if (!/\p{Ll}/u.test(s)) a.push("não tem letra minúscula");
+  if (!/[0-9]/.test(s)) a.push("não tem número");
+  if (!/[^\p{L}\p{N}\s]/u.test(s)) a.push("não tem símbolo (como @ # ! *)");
+  if (/^\s/.test(s)) a.push("tem espaço no começo");
+  if (/\s$/.test(s)) a.push("tem espaço no fim");
+  if (/\S\s+\S/.test(s)) a.push("tem espaço no meio");
+  return a;
+}
+let pwChave = "";
+function atualizarSenha() {
+  const a = senhaAvisos($("#senha").value);
+  const chave = a.join("|");
+  $("#pw-check").hidden = a.length === 0;
+  if (chave !== pwChave) { $("#pw-ok").checked = false; pwChave = chave; } // mudou o problema: confirmar de novo
+  if (!a.length) return;
+  $("#pw-msg").textContent = "⚠️ Confira a senha: a que você digitou " + a.join("; ") + ". Costuma ser assim: 8 ou mais caracteres, com letra maiúscula, minúscula, número e símbolo. " +
+    "Lembre que o espaço também conta como caractere. Se a sua senha é essa mesmo, marque a caixinha abaixo.";
+}
+$("#senha").addEventListener("input", atualizarSenha);
+
 /* ---------- Eventos de campos ---------- */
 $("#cpf").addEventListener("input", e => e.target.value = maskCPF(e.target.value));
 $("#rg").addEventListener("input", e => {
@@ -605,7 +642,10 @@ function validate() {
   const chkOpt = (id, filled, ok, msg) => chk(id, !filled || ok, msg);
 
   chk("cpf", validCPF(v("cpf")), "Confira o CPF: ele precisa ter 11 números válidos.");
-  chk("senha", v("senha").length > 0, "Digite a senha do seu Gov.br.");
+  const senhaRaw = $("#senha").value; // sem cortar espaços: espaço também é caractere
+  const senhaAv = senhaAvisos(senhaRaw);
+  chk("senha", senhaRaw.length > 0 && (senhaAv.length === 0 || $("#pw-ok").checked),
+      senhaRaw.length === 0 ? "Digite a senha do seu Gov.br." : "Confira a senha e marque a caixinha para continuar.");
   chk("nome", v("nome").length >= 2, "Escreva o seu nome.");
   const faltaLetra = $("#rgletra").checked && !/^[A-Z]$/.test(v("rgl"));
   const rgOk = v("rg").length >= 5 && !faltaLetra;
@@ -672,9 +712,11 @@ function collect() {
   const alt = modo() === "alterar";
   const rows = [
     ["CPF", v("cpf")],
-    ["Senha do Gov.br", v("senha")],
-    ["Nome", v("nome")],
+    ["Senha do Gov.br", $("#senha").value],
   ];
+  const avSenha = senhaAvisos($("#senha").value);
+  if (avSenha.length) rows.push(["Aviso sobre a senha", "O cliente confirmou que a senha está certa, mesmo ela " + avSenha.join("; ") + ". Digite exatamente como veio."]);
+  rows.push(["Nome", v("nome")]);
   // Abrir: tudo entra. Alterar: só entra o que a pessoa preencheu.
   const add = (label, val) => { if (!alt || val) rows.push([label, val || "—"]); };
   if (alt) rows.push({ h: "Dados a alterar" });
