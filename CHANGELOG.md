@@ -2,6 +2,19 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.8.0] - 2026-11-07
+
+### Adicionado
+- Aviso final em destaque (vermelho) pedindo para desligar a verificação em duas etapas do Gov.br, com caixinha obrigatória: "Conferi e confirmo que a verificação em duas etapas do meu Gov.br está DESLIGADA. Estou ciente de que, com ela ligada, o serviço não poderá ser executado." Fica junto da autorização, no fim do formulário, nos dois modos (abrir e alterar). Sem marcar, o formulário não avança.
+- A confirmação vai na mensagem para o escritório ("Verificação em duas etapas do Gov.br: Cliente confirmou que está DESLIGADA"), como registro.
+
+### Alterado
+- O passo a passo (no aviso final e no "Não sabe como fazer?" do topo) agora é pelo **aplicativo do Gov.br**: Segurança da conta > Verificação em duas etapas > Desabilitar, com a conferência (aparece a opção "Habilitar") e o alerta de não desinstalar o app nem trocar de celular com a verificação ligada. Antes dizia só "entre na sua conta e toque em Segurança".
+- O aviso do topo fala em "até terminarmos o serviço" (valia só para abertura) e avisa que a confirmação é no fim.
+
+### Observação
+- Caminho no app conferido na página oficial do Governo Digital (gov.br): aplicativo gov.br > Segurança da conta > Verificação em duas etapas > Desabilitar. Os nomes podem mudar se o app for atualizado.
+
 ## [1.7.0] - 2026-11-06
 
 ### Adicionado

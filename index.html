@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-RYsytnxAIuLeR6TapmcrnvdXspQ1lNWs4abc1Hp3ePQ='; style-src 'unsafe-inline'; img-src data:; connect-src https://viacep.com.br; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ZZ1AlqcFAf7WrJpWC+I/dn4owLPZunEn7pvNV/M0ZTY='; style-src 'unsafe-inline'; img-src data:; connect-src https://viacep.com.br; base-uri 'none'; form-action 'none'">
 <meta name="robots" content="noindex, nofollow">
 <title>MEI – Esidoros</title>
 <style>
@@ -43,6 +43,10 @@
   .choice label{margin:0;font-weight:500;border:1.5px solid #cfc8bb;border-radius:10px;padding:13px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;background:#fff}
   .choice.col1{grid-template-columns:1fr}
   .shout{background:#fdecea;border:2px solid var(--err);color:var(--err);border-radius:10px;padding:12px 14px;font-weight:800;text-transform:uppercase;line-height:1.35;font-size:.95rem;margin:0 0 14px}
+  .twofa{border:2px solid var(--err);border-radius:12px;padding:14px;margin-bottom:14px;background:#fff8f7}
+  .twofa .shout{margin:0 0 10px}
+  .twofa ol{margin:8px 0 10px;padding-left:22px}
+  .twofa li{margin-bottom:5px}
   .pwcheck{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;padding:12px 14px;margin-top:10px;font-size:.92rem}
   .shout.big{font-size:1.02rem;margin:14px 0 0}
   .shout u{text-decoration-thickness:3px}
@@ -151,14 +155,18 @@
       </div>
 
       <div class="warn">
-        <strong>⚠️ Atenção:</strong> deixe a <strong>verificação em duas etapas DESLIGADA</strong> no seu Gov.br até abrirmos o MEI. Depois que estiver tudo pronto, você pode ligar de novo quando quiser.
+        <strong>⚠️ Atenção:</strong> deixe a <strong>verificação em duas etapas DESLIGADA</strong> no seu Gov.br até terminarmos o serviço. Depois, você pode ligar de novo quando quiser. Você vai confirmar isso no final do formulário.
         <details class="howto">
           <summary>Não sabe como fazer? Clique aqui.</summary>
+          <div style="margin-top:8px">Faça pelo <strong>aplicativo do Gov.br</strong> no seu celular:</div>
           <ol>
-            <li>Entre na sua conta do Gov.br.</li>
-            <li>Toque na aba <strong>Segurança</strong>.</li>
-            <li>Desative a <strong>verificação em duas etapas</strong>.</li>
+            <li>Abra o aplicativo <strong>gov.br</strong> no seu celular.</li>
+            <li>Na tela inicial, role e toque em <strong>Segurança da conta</strong>.</li>
+            <li>Toque em <strong>Verificação em duas etapas</strong>.</li>
+            <li>Toque em <strong>Desabilitar</strong>.</li>
+            <li>Para conferir: toque de novo em <strong>Verificação em duas etapas</strong>. Se aparecer a opção <strong>Habilitar</strong>, ela está desligada.</li>
           </ol>
+          <div style="margin-top:8px">Não desinstale o aplicativo nem troque de celular com a verificação ligada, para não perder o acesso à conta.</div>
         </details>
       </div>
     </section>
@@ -296,6 +304,25 @@
     </section>
 
     <section class="card">
+      <div class="twofa">
+        <div class="shout">⚠️ Último passo: desligue a verificação em duas etapas do seu Gov.br</div>
+        <div>Se ela estiver ligada, a Esidoros <strong>não consegue entrar na sua conta</strong> e o <strong>serviço não poderá ser executado</strong>. Faça agora, pelo <strong>aplicativo do Gov.br</strong> no seu celular:</div>
+        <ol>
+          <li>Abra o aplicativo <strong>gov.br</strong> no seu celular.</li>
+          <li>Na tela inicial, role e toque em <strong>Segurança da conta</strong>.</li>
+          <li>Toque em <strong>Verificação em duas etapas</strong>.</li>
+          <li>Toque em <strong>Desabilitar</strong>.</li>
+          <li>Para conferir: toque de novo em <strong>Verificação em duas etapas</strong>. Se aparecer a opção <strong>Habilitar</strong>, ela está desligada.</li>
+        </ol>
+        <div class="hint" style="margin-bottom:12px">Não desinstale o aplicativo nem troque de celular com a verificação ligada: você pode perder o acesso à conta. Quando o serviço estiver concluído, você pode ligar de novo.</div>
+        <div class="field" id="f-dois" style="margin-bottom:0">
+          <label class="check" for="dois">
+            <input type="checkbox" id="dois">
+            <span><strong>Conferi e confirmo que a verificação em duas etapas do meu Gov.br está DESLIGADA.</strong> Estou ciente de que, com ela ligada, o serviço não poderá ser executado.</span>
+          </label>
+          <div class="err"></div>
+        </div>
+      </div>
       <div class="field" id="f-termo">
         <label class="check" for="termo">
           <input type="checkbox" id="termo">
@@ -693,6 +720,7 @@ function validate() {
     if (checked("mesmo") === "nao") checkAddr("res");
   }
 
+  chk("dois", $("#dois").checked, "Desligue a verificação em duas etapas e marque a caixinha para continuar.");
   chk("termo", $("#termo").checked, "Marque a caixa para continuar.");
   return bad;
 }
@@ -747,12 +775,12 @@ function collect() {
     if (res === "outro") addrRows("Novo endereço residencial", "res");
     else if (res === "igual") rows.push({ h: "Novo endereço residencial" }, ["Residencial igual ao comercial", "Sim"]);
     if (v("obs")) rows.push({ h: "Recado" }, ["Outra alteração ou recado", v("obs")]);
-    rows.push({ h: "Autorização" }, ["Autorização para a Esidoros alterar os dados do MEI", "Confirmado"]);
+    rows.push({ h: "Autorização" }, ["Verificação em duas etapas do Gov.br", "Cliente confirmou que está DESLIGADA"], ["Autorização para a Esidoros alterar os dados do MEI", "Confirmado"]);
   } else {
     addrRows("Endereço comercial", "com");
     if (checked("mesmo") === "nao") addrRows("Endereço residencial", "res");
     else rows.push({ h: "Endereço residencial" }, ["Residencial igual ao comercial", "Sim"]);
-    rows.push({ h: "Declaração" }, ["Desimpedimento e autorização para a Esidoros abrir o MEI", "Confirmado"]);
+    rows.push({ h: "Declaração" }, ["Verificação em duas etapas do Gov.br", "Cliente confirmou que está DESLIGADA"], ["Desimpedimento e autorização para a Esidoros abrir o MEI", "Confirmado"]);
   }
   return rows;
 }
