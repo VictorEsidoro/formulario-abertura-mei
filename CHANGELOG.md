@@ -2,6 +2,11 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.9.2] - 2026-11-11
+
+### Adicionado
+- Rodapé com direitos autorais da Esidoros (© 2026, CRCMG 17567), aviso de reprodução proibida (Lei nº 9.610/1998) e o número da versão. Aparece só na página; não vai na mensagem enviada ao escritório.
+
 ## [1.9.1] - 2026-11-11
 
 ### Alterado
