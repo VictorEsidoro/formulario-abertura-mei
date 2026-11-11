@@ -2,6 +2,13 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.10.0] - 2026-11-11
+
+### Alterado
+- **O teste agora é a primeira coisa do formulário.** Logo depois de escolher "abrir" ou "alterar", aparece o quadro "PARE AQUI! Faça este teste ANTES de preencher o resto", avisando que sem o teste a Esidoros não consegue executar o serviço e que, se ele for pulado ou marcado sem ter sido feito, o pedido volta para o fim da fila e pode atrasar conforme a demanda do escritório. O quadro reúne o passo 1 (desligar a verificação em duas etapas, com a caixinha de confirmação) e o passo 2 (teste do e-CAC).
+- **O resto do formulário só aparece depois do teste:** é preciso marcar a caixinha da verificação em duas etapas e marcar "O e-CAC abriu" (ou "outra coisa / não consegui testar", que continua liberando). Senha errada, conta Bronze e pedido de código mantêm o resto trancado, e voltar atrás tranca de novo. Assim quem tem senha errada ou conta Bronze descobre antes de preencher tudo.
+- Os textos do teste foram ajustados à nova ordem (a senha agora é digitada no campo "Senha do Gov.br" logo depois do teste) e o subtítulo passou a "Leva poucos minutos".
+
 ## [1.9.2] - 2026-11-11
 
 ### Adicionado
