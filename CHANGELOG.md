@@ -2,6 +2,11 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.9.1] - 2026-11-11
+
+### Alterado
+- O aviso de conta Bronze agora usa o texto real do e-CAC (código 88008: "sua conta gov.br deve possuir nível de confiabilidade Prata ou Ouro"), tanto na opção de resultado quanto no painel de ajuda. O painel ganhou uma imagem do aviso destacado em vermelho, para o cliente reconhecer a tela.
+
 ## [1.9.0] - 2026-11-11
 
 ### Adicionado
@@ -11,7 +16,7 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e
 - A mensagem para o escritório traz a linha "Teste de acesso ao e-CAC pelo Gov.br" com o resultado informado.
 
 ### Observação
-- O resultado é informado pelo próprio cliente: o formulário não consegue (nem deve) logar no Gov.br por ele. Se o Gov.br ou o e-CAC mudarem textos, botões ou o aviso de conta Bronze, os textos do tutorial precisam ser revisados. O texto exato do aviso de conta Bronze no e-CAC não foi confirmado.
+- O resultado é informado pelo próprio cliente: o formulário não consegue (nem deve) logar no Gov.br por ele. Se o Gov.br ou o e-CAC mudarem textos, botões ou o aviso de conta Bronze, os textos do tutorial precisam ser revisados.
 
 ## [1.8.0] - 2026-11-07
 
