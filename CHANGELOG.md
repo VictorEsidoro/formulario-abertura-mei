@@ -2,6 +2,17 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.9.0] - 2026-11-11
+
+### Adicionado
+- **Teste final de acesso ao e-CAC**, nos dois modos (abrir e alterar), entre a confirmação da verificação em duas etapas e a autorização. O cliente abre o e-CAC (`cav.receita.fazenda.gov.br`) numa aba nova, toca em "Entrar com gov.br", digita CPF e senha e marca o que apareceu. O e-CAC só abre com senha correta, conta Prata ou Ouro e verificação em duas etapas desligada, então o teste confere as três coisas. A senha nunca passa pelo formulário nem por servidor: quem entra é o próprio cliente, no site oficial.
+- Tutorial ilustrado com 4 imagens embutidas (funcionam sem internet): seta vermelha enorme no "Entrar com gov.br", CPF e Continuar destacados, tela do e-CAC aberta ("deu certo", dados do titular cobertos) e o aviso "Usuário e/ou senha inválidos".
+- Cinco opções de resultado, sem nenhuma marcada de início: abriu (libera o envio); senha inválida, conta Bronze e pediu código (bloqueiam o envio, cada uma com a explicação de como corrigir, com tutorial completo de como subir o nível da conta: app gov.br, "Aumentar nível", Caminho A por reconhecimento facial com a CNH e Caminho B por internet banking, como conferir o selo e o que fazer se o rosto falhar; passos conferidos na página oficial do Gov.br e iguais no Android e no iPhone); e "outra coisa / não consegui testar" (libera, mas avisa o escritório).
+- A mensagem para o escritório traz a linha "Teste de acesso ao e-CAC pelo Gov.br" com o resultado informado.
+
+### Observação
+- O resultado é informado pelo próprio cliente: o formulário não consegue (nem deve) logar no Gov.br por ele. Se o Gov.br ou o e-CAC mudarem textos, botões ou o aviso de conta Bronze, os textos do tutorial precisam ser revisados. O texto exato do aviso de conta Bronze no e-CAC não foi confirmado.
+
 ## [1.8.0] - 2026-11-07
 
 ### Adicionado
