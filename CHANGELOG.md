@@ -2,6 +2,13 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.10.1] - 2026-11-11
+
+### Alterado
+- **Tom mais gentil nos textos da conferência de acesso.** "Teste" e "provar" viraram "conferência" e "conferir"; "e-CAC" virou "portal do governo" (o site da Receita Federal) nos textos para o cliente; o quadro de abertura deixou de ser "PARE AQUI" em vermelho e passou a "Antes de começar: confira o seu acesso ao Gov.br", em azul. Palavras em caixa alta e termos como "senha errada" foram trocados por formas mais suaves ("senha não foi aceita", "senha diferente da atual"). A imagem do erro de senha agora diz "SENHA NÃO ACEITA".
+- Novo aviso no passo 2: é só para conferir se o portal abre; assim que abrir, fechar a página e voltar, sem clicar em mais nada, pois alguns serviços do portal podem afetar o cliente e devem ser feitos por profissionais.
+- Mantido: o aviso de que, sem a conferência, o pedido volta para o fim da fila. A linha enviada ao escritório continua citando o e-CAC.
+
 ## [1.10.0] - 2026-11-11
 
 ### Alterado
