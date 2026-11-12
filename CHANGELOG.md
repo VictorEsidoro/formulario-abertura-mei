@@ -2,6 +2,11 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.10.2] - 2026-11-12
+
+### Alterado
+- O painel de "apareceu uma tela pedindo um código" agora mostra a tela real do Gov.br ("Confirme sua identidade com a Verificação em duas etapas") com a legenda "se apareceu esta tela, a verificação em duas etapas está ligada", e explica que digitar um código não resolve: é preciso desligar a verificação. Motivo: um cliente respondeu que a verificação estava desligada e mandou como prova justamente essa tela, que só aparece com ela ligada. A opção correspondente do teste passou a citar o título da tela.
+
 ## [1.10.1] - 2026-11-11
 
 ### Alterado
